@@ -1,149 +1,112 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { QCard, QForm, QInput, QBtn, QSpinner } from "quasar";
-import { PhLock } from "@phosphor-icons/vue";
+import { PhEnvelope, PhLock, PhEye, PhEyeClosed, PhWarning, PhCookie } from "@phosphor-icons/vue";
 
 const email = ref("");
 const password = ref("");
 const loading = ref(false);
 const errorMessage = ref("");
-const hasError = ref(false);
 const showPassword = ref(false);
 
 const emailRules = [
-  (val: string) => !!val || "E-mail é obrigatório",
-  (val: string) => /.+@.+\..+/.test(val) || "Digite um e-mail válido",
+  (value: string) => !!value || "E-mail é obrigatório",
+  (value: string) => /.+@.+\..+/.test(value) || "Digite um e-mail válido",
 ];
 
 const passwordRules = [
-  (val: string) => !!val || "Senha é obrigatória",
-  (val: string) => val.length >= 6 || "Senha deve ter no mínimo 6 caracteres",
+  (value: string) => !!value || "Senha é obrigatória",
+  (value: string) => value.length >= 6 || "Senha deve ter no mínimo 6 caracteres",
 ];
 
 const handleLogin = async () => {
   errorMessage.value = "";
-  hasError.value = false;
   loading.value = true;
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    const isSuccess = Math.random() > 0.5;
-
-    if (isSuccess) {
-      console.log("Login bem-sucedido!", { email: email.value });
-      errorMessage.value = "";
-      hasError.value = false;
-    } else {
-      throw new Error("Credenciais inválidas");
-    }
-  } catch (error) {
-    console.log(error);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    if (Math.random() < 0.5) throw new Error();
+  } catch {
     errorMessage.value = "E-mail ou senha incorretos. Tente novamente.";
-    hasError.value = true;
   } finally {
     loading.value = false;
   }
 };
-
-const handleForgotPassword = () => {
-  console.log("Redirecionar para recuperação de senha");
-};
 </script>
+
 <template>
-  <div class="min-h-screen w-full flex items-center justify-center bg-white px-4 py-8">
+  <div class="min-h-screen w-full bg-[#F1E8DC] flex items-center justify-center px-4 py-8">
     <div class="w-full max-w-md">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-2">Cêdo</h1>
+      <div class="text-center mb-10">
+        <div class="flex items-center justify-center">
+          <PhCookie :size="90" color="#081534" />
+        </div>
+
+        <h1 class="text-3xl font-bold tracking-tight text-[#081534]">Cêdo</h1>
       </div>
 
-      <QCard flat bordered class="rounded-lg border-gray-200">
+      <QCard flat bordered class="rounded-2xl shadow-lg bg-white/95 backdrop-blur">
         <div class="p-6 sm:p-8">
           <div class="mb-6">
-            <p class="text-sm text-gray-500">Acesse sua conta para continuar</p>
+            <h2 class="text-xl font-semibold text-gray-900">Login</h2>
+            <p class="text-sm text-gray-500">Acesse sua conta</p>
           </div>
 
           <QForm @submit="handleLogin" class="space-y-5">
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">
-                E-mail
-              </label>
-              <QInput
-                id="email"
-                v-model="email"
-                type="email"
-                outlined
-                placeholder="seu@email.com"
-                :rules="emailRules"
-                :error="hasError"
-                dense
-                class="custom-input"
-                bg-color="white"
-                color="gray-9"
-              >
-                <template v-slot:prepend>
-                  <PhEnvelope class="text-gray-500" />
-                </template>
-              </QInput>
-            </div>
+            <QInput color="black" v-model="email" type="email" label="E-mail" outlined dense :rules="emailRules">
+              <template #prepend>
+                <PhEnvelope :size="20" />
+              </template>
+            </QInput>
 
-            <div>
-              <label for="password" class="block text-sm font-medium text-gray-700 mb-1.5">
-                Senha
-              </label>
-              <QInput
-                id="password"
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
-                outlined
-                placeholder="••••••••"
-                :rules="passwordRules"
-                :error="hasError"
-                dense
-                class="custom-input"
-                bg-color="white"
-                color="gray-9"
-              >
-                <template v-slot:prepend>
-                  <PhLock class="text-gray-500" />
-                </template>
-                <template v-slot:append>
-                  <PhEye
-                    v-if="showPassword"
-                    class="cursor-pointer text-gray-500 hover:text-gray-700"
-                    @click="showPassword = !showPassword"
-                  />
-                  <PhEyeClosed v-else @click="showPassword = !showPassword" />
-                </template>
-              </QInput>
-            </div>
+            <QInput
+              color="black"
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              label="Senha"
+              outlined
+              dense
+              :rules="passwordRules"
+            >
+              <template #prepend>
+                <PhLock :size="20" />
+              </template>
+              <template #append>
+                <PhEye
+                  v-if="showPassword"
+                  :size="20"
+                  class="cursor-pointer opacity-60 hover:opacity-100"
+                  @click="showPassword = false"
+                />
+                <PhEyeClosed
+                  v-else
+                  :size="20"
+                  class="cursor-pointer opacity-60 hover:opacity-100"
+                  @click="showPassword = true"
+                />
+              </template>
+            </QInput>
 
-            <div v-if="errorMessage" class="px-3 py-2 bg-gray-50 rounded border border-gray-200">
-              <p class="text-sm text-gray-700 flex items-center gap-2">
-                <QIcon name="error_outline" size="18px" class="text-gray-600" />
-                {{ errorMessage }}
-              </p>
-            </div>
-
-            <div class="flex justify-end">
-              <button
-                type="button"
-                @click="handleForgotPassword"
-                class="text-sm text-gray-600 hover:text-gray-900 transition-colors underline-offset-2 hover:underline"
-              >
-                Esqueci minha senha
-              </button>
+            <div
+              v-if="errorMessage"
+              class="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"
+            >
+              <PhWarning :size="18" />
+              {{ errorMessage }}
             </div>
 
             <QBtn
               type="submit"
               :loading="loading"
               :disable="loading"
-              class="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 rounded"
+              unelevated
+              no-caps
+              class="w-full rounded-xl text-white transition"
+              style="background-color: #081534"
               label="Entrar"
             >
-              <template v-slot:loading>
-                <QSpinner color="white" size="20px" />
+              <template #loading>
+                <QSpinner size="20px" />
               </template>
             </QBtn>
           </QForm>
@@ -151,7 +114,7 @@ const handleForgotPassword = () => {
       </QCard>
 
       <div class="mt-6 text-center">
-        <p class="text-xs text-gray-500">© 2026 Cedô • Gestão de Doceria</p>
+        <p class="text-xs text-[#081534]">© 2026 Cêdo • powered by BeeSync</p>
       </div>
     </div>
   </div>
