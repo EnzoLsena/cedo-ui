@@ -1,14 +1,24 @@
-import './assets/main.css'
+import "./assets/main.css";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-import App from './App.vue'
-import router from './router'
+import { Quasar } from "quasar";
 
-const app = createApp(App)
+import "@quasar/extras/roboto-font/roboto-font.css";
+import "@quasar/extras/material-icons/material-icons.css";
 
-app.use(createPinia())
-app.use(router)
+import "quasar/dist/quasar.css";
+import quasarLang from "quasar/lang/pt-BR";
+import App from "./App.vue";
+import router from "./router";
 
-app.mount('#app')
+const app = createApp(App);
+app.use(Quasar, {
+  plugins: {},
+  lang: quasarLang,
+});
+app.use(createPinia());
+app.use(router);
+
+app.mount("#app");
