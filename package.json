@@ -15,9 +15,12 @@
     "format": "oxfmt src/"
   },
   "dependencies": {
+    "@phosphor-icons/vue": "^2.2.1",
     "@quasar/extras": "^1.17.0",
+    "@tailwindcss/vite": "^4.1.18",
     "pinia": "^3.0.4",
     "quasar": "^2.18.6",
+    "tailwindcss": "^4.1.18",
     "vue": "^3.5.27",
     "vue-router": "^5.0.1"
   },
