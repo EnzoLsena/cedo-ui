@@ -55,13 +55,11 @@ const handleForgotPassword = () => {
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
         <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-2">Cêdo</h1>
-        <p class="text-sm text-gray-500 font-light">Sistema de Gestão</p>
       </div>
 
       <QCard flat bordered class="rounded-lg border-gray-200">
         <div class="p-6 sm:p-8">
           <div class="mb-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-1">Entrar</h2>
             <p class="text-sm text-gray-500">Acesse sua conta para continuar</p>
           </div>
 
