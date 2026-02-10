@@ -4,6 +4,8 @@ import { QCard, QForm, QInput, QBtn, QSpinner } from "quasar";
 import { PhEnvelope, PhLock, PhEye, PhEyeClosed, PhWarning, PhCookie } from "@phosphor-icons/vue";
 
 import authService from "@/services/auth-service";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const payload = reactive({
   email: "",
   password: "",
@@ -28,6 +30,7 @@ const handleLogin = async () => {
 
   try {
     await authService.login(payload);
+    router.push("/home");
   } catch {
     errorMessage.value = "E-mail ou senha incorretos. Tente novamente.";
   } finally {
