@@ -9,7 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [
     vue({ template: { transformAssetUrls } }),
-  tailwindcss(),
+    tailwindcss(),
     quasar({
       autoImportComponentCase: "pascal",
     }),
