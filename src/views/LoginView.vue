@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { QCard, QForm, QInput, QBtn, QSpinner } from "quasar";
 import { PhEnvelope, PhLock, PhEye, PhEyeClosed, PhWarning, PhCookie } from "@phosphor-icons/vue";
 
-const email = ref("");
-const password = ref("");
+import authService from "@/services/auth-service";
+const payload = reactive({
+  email: "",
+  password: "",
+});
 const loading = ref(false);
 const errorMessage = ref("");
 const showPassword = ref(false);
@@ -24,8 +27,7 @@ const handleLogin = async () => {
   loading.value = true;
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    if (Math.random() < 0.5) throw new Error();
+    await authService.login(payload);
   } catch {
     errorMessage.value = "E-mail ou senha incorretos. Tente novamente.";
   } finally {
@@ -53,7 +55,15 @@ const handleLogin = async () => {
           </div>
 
           <QForm @submit="handleLogin" class="space-y-5">
-            <QInput color="black" v-model="email" type="email" label="E-mail" outlined dense :rules="emailRules">
+            <QInput
+              color="black"
+              v-model="payload.email"
+              type="email"
+              label="E-mail"
+              outlined
+              dense
+              :rules="emailRules"
+            >
               <template #prepend>
                 <PhEnvelope :size="20" />
               </template>
@@ -61,7 +71,7 @@ const handleLogin = async () => {
 
             <QInput
               color="black"
-              v-model="password"
+              v-model="payload.password"
               :type="showPassword ? 'text' : 'password'"
               label="Senha"
               outlined

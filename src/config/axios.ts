@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const urlBase = "https://api.cedodoceria.com/";
+// export const urlBase = "http//:localhost:3000";
 
 const axiosInstance = axios.create({ baseURL: urlBase });
 
