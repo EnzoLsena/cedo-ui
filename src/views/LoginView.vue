@@ -40,95 +40,126 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen w-full bg-[#F1E8DC] flex items-center justify-center px-4 py-8">
-    <div class="w-full max-w-md">
-      <div class="text-center mb-10">
-        <div class="flex items-center justify-center">
-          <PhCookie :size="90" color="#081534" />
-        </div>
+  <div
+    class="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-50 via-[#F7F1E8] to-slate-100 px-4 py-8 sm:px-6"
+  >
+    <div class="pointer-events-none absolute left-0 top-0 h-72 w-72 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#081534]/10 blur-3xl" />
+    <div class="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/3 translate-y-1/3 rounded-full bg-[#C7AB84]/35 blur-3xl" />
 
-        <h1 class="text-3xl font-bold tracking-tight text-[#081534]">Cêdo</h1>
-      </div>
+    <div class="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-5xl items-center justify-center">
+      <QCard
+        flat
+        bordered
+        class="w-full overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-2xl backdrop-blur-lg"
+      >
+        <div class="grid min-h-[560px] lg:grid-cols-[1.1fr_1fr]">
+          <section class="hidden bg-[#081534] p-10 text-white lg:flex lg:flex-col lg:justify-between">
+            <div>
+              <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10">
+                <PhCookie :size="30" color="#F5EBD9" />
+              </div>
 
-      <QCard flat bordered class="rounded-2xl shadow-lg bg-white/95 backdrop-blur">
-        <div class="p-6 sm:p-8">
-          <div class="mb-6">
-            <h2 class="text-xl font-semibold text-gray-900">Login</h2>
-            <p class="text-sm text-gray-500">Acesse sua conta</p>
-          </div>
-
-          <QForm @submit="handleLogin" class="space-y-5">
-            <QInput
-              color="black"
-              v-model="payload.email"
-              type="email"
-              label="E-mail"
-              outlined
-              dense
-              :rules="emailRules"
-            >
-              <template #prepend>
-                <PhEnvelope :size="20" />
-              </template>
-            </QInput>
-
-            <QInput
-              color="black"
-              v-model="payload.password"
-              :type="showPassword ? 'text' : 'password'"
-              label="Senha"
-              outlined
-              dense
-              :rules="passwordRules"
-            >
-              <template #prepend>
-                <PhLock :size="20" />
-              </template>
-              <template #append>
-                <PhEye
-                  v-if="showPassword"
-                  :size="20"
-                  class="cursor-pointer opacity-60 hover:opacity-100"
-                  @click="showPassword = false"
-                />
-                <PhEyeClosed
-                  v-else
-                  :size="20"
-                  class="cursor-pointer opacity-60 hover:opacity-100"
-                  @click="showPassword = true"
-                />
-              </template>
-            </QInput>
-
-            <div
-              v-if="errorMessage"
-              class="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"
-            >
-              <PhWarning :size="18" />
-              {{ errorMessage }}
+              <p class="mb-3 text-xs uppercase tracking-[0.35em] text-white/60">Cêdo Platform</p>
+              <h1 class="text-4xl font-semibold leading-tight">
+                Simples, rápido e bonito para o seu dia a dia.
+              </h1>
+              <p class="mt-6 max-w-sm text-sm leading-6 text-white/75">
+                Entre para acompanhar seus fluxos com uma experiência moderna e objetiva.
+              </p>
             </div>
 
-            <QBtn
-              type="submit"
-              :loading="loading"
-              :disable="loading"
-              unelevated
-              no-caps
-              class="w-full rounded-xl text-white transition"
-              style="background-color: #081534"
-              label="Entrar"
-            >
-              <template #loading>
-                <QSpinner size="20px" />
-              </template>
-            </QBtn>
-          </QForm>
+            <p class="text-xs text-white/55">© 2026 Cêdo • powered by BeeSync</p>
+          </section>
+
+          <section class="flex items-center p-6 sm:p-10 lg:p-12">
+            <div class="mx-auto w-full max-w-md">
+              <div class="mb-8 lg:hidden">
+                <div class="mb-4 flex items-center justify-center">
+                  <PhCookie :size="64" color="#081534" />
+                </div>
+
+                <h1 class="text-center text-3xl font-semibold text-[#081534]">Cêdo</h1>
+              </div>
+
+              <div class="mb-7">
+                <h2 class="text-2xl font-semibold text-slate-900">Bem-vindo de volta</h2>
+                <p class="mt-2 text-sm text-slate-500">Use suas credenciais para acessar sua conta.</p>
+              </div>
+
+              <QForm @submit="handleLogin" class="space-y-5">
+                <QInput
+                  color="dark"
+                  v-model="payload.email"
+                  type="email"
+                  label="E-mail"
+                  outlined
+                  dense
+                  :rules="emailRules"
+                  class="rounded-xl"
+                >
+                  <template #prepend>
+                    <PhEnvelope :size="20" class="text-slate-500" />
+                  </template>
+                </QInput>
+
+                <QInput
+                  color="dark"
+                  v-model="payload.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  label="Senha"
+                  outlined
+                  dense
+                  :rules="passwordRules"
+                  class="rounded-xl"
+                >
+                  <template #prepend>
+                    <PhLock :size="20" class="text-slate-500" />
+                  </template>
+                  <template #append>
+                    <PhEye
+                      v-if="showPassword"
+                      :size="20"
+                      class="cursor-pointer text-slate-500 transition hover:text-slate-900"
+                      @click="showPassword = false"
+                    />
+                    <PhEyeClosed
+                      v-else
+                      :size="20"
+                      class="cursor-pointer text-slate-500 transition hover:text-slate-900"
+                      @click="showPassword = true"
+                    />
+                  </template>
+                </QInput>
+
+                <div
+                  v-if="errorMessage"
+                  class="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+                >
+                  <PhWarning :size="18" />
+                  {{ errorMessage }}
+                </div>
+
+                <QBtn
+                  type="submit"
+                  :loading="loading"
+                  :disable="loading"
+                  unelevated
+                  no-caps
+                  class="w-full rounded-xl py-2 text-white transition"
+                  style="background-color: #081534"
+                  label="Entrar"
+                >
+                  <template #loading>
+                    <QSpinner size="20px" />
+                  </template>
+                </QBtn>
+              </QForm>
+
+              <p class="mt-8 text-center text-xs text-slate-400 lg:hidden">© 2026 Cêdo • powered by BeeSync</p>
+            </div>
+          </section>
         </div>
       </QCard>
-
-      <div class="mt-6 text-center">
-        <p class="text-xs text-[#081534]">© 2026 Cêdo • powered by BeeSync</p>
-      </div>
     </div>
   </div>
 </template>
