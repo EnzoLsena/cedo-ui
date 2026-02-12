@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import HomeLayout from '@/layouts/HomeLayout.vue';
 </script>
 
 <template>
-    <QBtn push color="primary" label="Fodase" />
+  <HomeLayout />
 </template>
