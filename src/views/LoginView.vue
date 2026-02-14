@@ -30,7 +30,7 @@ const handleLogin = async () => {
 
   try {
     await authService.login(payload);
-    router.push("/home");
+    router.push({ path: "/" });
   } catch {
     errorMessage.value = "E-mail ou senha incorretos. Tente novamente.";
   } finally {
@@ -41,27 +41,36 @@ const handleLogin = async () => {
 
 <template>
   <div
-    class="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-50 via-[#F7F1E8] to-slate-100 px-4 py-8 sm:px-6"
+    class="relative min-h-screen w-full overflow-hidden bg-[#FFEBD6] px-4 py-8 sm:px-6"
   >
-    <div class="pointer-events-none absolute left-0 top-0 h-72 w-72 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#081534]/10 blur-3xl" />
-    <div class="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/3 translate-y-1/3 rounded-full bg-[#C7AB84]/35 blur-3xl" />
+    <div
+      class="pointer-events-none absolute left-0 top-0 h-72 w-72 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#782736]/10 blur-3xl"
+    />
+    <div
+      class="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/3 translate-y-1/3 rounded-full bg-[#FFEBD6]/35 blur-3xl"
+    />
 
-    <div class="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-5xl items-center justify-center">
+    <div
+      class="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-5xl items-center justify-center"
+    >
       <QCard
         flat
         bordered
-        class="w-full overflow-hidden rounded-3xl border border-white/70 bg-white/85 shadow-2xl backdrop-blur-lg"
+        class="w-full overflow-hidden rounded-3xl bg-white/85 shadow-xl backdrop-blur-lg"
       >
-        <div class="grid min-h-[560px] lg:grid-cols-[1.1fr_1fr]">
-          <section class="hidden bg-[#081534] p-10 text-white lg:flex lg:flex-col lg:justify-between">
+        <div class="grid min-h-140 lg:grid-cols-[1.1fr_1fr]">
+          <section
+            class="hidden bg-[#782736] p-10 text-white lg:flex lg:flex-col lg:justify-between"
+          >
             <div>
-              <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10">
+              <div
+                class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10"
+              >
                 <PhCookie :size="30" color="#F5EBD9" />
               </div>
 
-              <p class="mb-3 text-xs uppercase tracking-[0.35em] text-white/60">Cêdo Platform</p>
               <h1 class="text-4xl font-semibold leading-tight">
-                Simples, rápido e bonito para o seu dia a dia.
+                Simples e rápido para o seu dia a dia.
               </h1>
               <p class="mt-6 max-w-sm text-sm leading-6 text-white/75">
                 Entre para acompanhar seus fluxos com uma experiência moderna e objetiva.
@@ -75,15 +84,17 @@ const handleLogin = async () => {
             <div class="mx-auto w-full max-w-md">
               <div class="mb-8 lg:hidden">
                 <div class="mb-4 flex items-center justify-center">
-                  <PhCookie :size="64" color="#081534" />
+                  <PhCookie :size="64" color="#782736" />
                 </div>
 
-                <h1 class="text-center text-3xl font-semibold text-[#081534]">Cêdo</h1>
+                <h1 class="text-center text-3xl font-semibold text-[#782736]">Cêdo</h1>
               </div>
 
               <div class="mb-7">
                 <h2 class="text-2xl font-semibold text-slate-900">Bem-vindo de volta</h2>
-                <p class="mt-2 text-sm text-slate-500">Use suas credenciais para acessar sua conta.</p>
+                <p class="mt-2 text-sm text-slate-500">
+                  Use suas credenciais para acessar sua conta.
+                </p>
               </div>
 
               <QForm @submit="handleLogin" class="space-y-5">
@@ -95,7 +106,7 @@ const handleLogin = async () => {
                   outlined
                   dense
                   :rules="emailRules"
-                  class="rounded-xl"
+                  
                 >
                   <template #prepend>
                     <PhEnvelope :size="20" class="text-slate-500" />
@@ -146,7 +157,7 @@ const handleLogin = async () => {
                   unelevated
                   no-caps
                   class="w-full rounded-xl py-2 text-white transition"
-                  style="background-color: #081534"
+                  style="background-color: #782736"
                   label="Entrar"
                 >
                   <template #loading>
@@ -155,7 +166,9 @@ const handleLogin = async () => {
                 </QBtn>
               </QForm>
 
-              <p class="mt-8 text-center text-xs text-slate-400 lg:hidden">© 2026 Cêdo • powered by BeeSync</p>
+              <p class="mt-8 text-center text-xs text-slate-400 lg:hidden">
+                © 2026 Cêdo • powered by BeeSync
+              </p>
             </div>
           </section>
         </div>
