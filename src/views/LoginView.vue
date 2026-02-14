@@ -40,9 +40,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div
-    class="relative min-h-screen w-full overflow-hidden bg-[#FFEBD6] px-4 py-8 sm:px-6"
-  >
+  <div class="relative min-h-screen w-full overflow-hidden bg-[#FFEBD6] px-4 py-8 sm:px-6">
     <div
       class="pointer-events-none absolute left-0 top-0 h-72 w-72 -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#782736]/10 blur-3xl"
     />
@@ -91,8 +89,11 @@ const handleLogin = async () => {
               </div>
 
               <div class="mb-7">
-                <h2 class="text-2xl font-semibold text-slate-900">Bem-vindo de volta</h2>
-                <p class="mt-2 text-sm text-slate-500">
+                <h2 class="hidden sm:block text-2xl font-semibold text-slate-900">
+                  Bem-vindo de volta
+                </h2>
+
+                <p class="hidden sm:block mt-2 text-sm text-slate-500">
                   Use suas credenciais para acessar sua conta.
                 </p>
               </div>
@@ -104,9 +105,9 @@ const handleLogin = async () => {
                   type="email"
                   label="E-mail"
                   outlined
+                  rounded
                   dense
                   :rules="emailRules"
-                  
                 >
                   <template #prepend>
                     <PhEnvelope :size="20" class="text-slate-500" />
@@ -119,6 +120,7 @@ const handleLogin = async () => {
                   :type="showPassword ? 'text' : 'password'"
                   label="Senha"
                   outlined
+                  rounded
                   dense
                   :rules="passwordRules"
                   class="rounded-xl"
@@ -156,7 +158,9 @@ const handleLogin = async () => {
                   :disable="loading"
                   unelevated
                   no-caps
-                  class="w-full rounded-xl py-2 text-white transition"
+                  push
+                  rounded
+                  class="w-full py-2 text-white transition"
                   style="background-color: #782736"
                   label="Entrar"
                 >
